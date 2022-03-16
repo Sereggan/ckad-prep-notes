@@ -1,23 +1,9 @@
 # ckad-prep-notes
 List of resources and notes for passing the Certified Kubernetes Application Developer (CKAD) exam. Official links below.
 
-- [CNCF Official CKAD Main](https://www.cncf.io/certification/ckad/)
-- [CNCF Kubernetes Curriculum Repo](https://github.com/cncf/curriculum)
-- [CNCF Official CKAD Exam Tips](https://www2.thelinuxfoundation.org/ckad-tips)
-- [CNCF Official CKAD Candidate Handbook](https://www.cncf.io/certification/candidate-handbook)
-- [VIM Cheatsheet - You should know VIM pretty well](https://devhints.io/vim)
 - [Excellent CKAD Exercises to complement this guide](https://github.com/dgkanatsios/CKAD-exercises)
 - [More CKAD Practice Questions](https://dev.to/liptanbiswas/ckad-practice-questions-4mpn)
-- [TMUX Cheat Sheet - TMUX is useful, especially for CKA](https://gist.github.com/MohamedAlaa/2961058)
 - [Answers to 5 Kubernetes CKAD Practice Questions](https://thospfuller.com/2020/11/09/answers_to_five_kubernetes_ckad_practice_questions_2021/)
-
-## Current Kubernetes Version (EXAM)
-Version: 1.14
-
-## Important vi Tips
-
-  - 'dG' - Deletes contents from cursor to end of file. This is very useful when editing YAML files.
-  - 'ZZ' - Save and exit quickly.
 
 ## kubectl Tips
 To set nano as your editor for 'kubectl edit'
@@ -25,26 +11,15 @@ To set nano as your editor for 'kubectl edit'
 export KUBE_EDITOR="nano"
 ```
 
-## Outline
-Right now there are five primary sections to this document.
-- [General Exam Tips](#tips)
-- [Overview](#overview)
-- [A Checklist of Curriculum Progress](#current-progress)
-- [Where to Practice?](#where-to-practice)
-- [Detailed Review (with Tips) Ordered by Curriculum](#detailed-review)
-- [List of Resources Ordered by Curriculum (mostly K8s.io) for Study](#tasks-from-kubernetes-doc)
-
 # Tips
 Okay, this section is new and contains some general pointers to help pass the exam.
-
-First, as discussed later, the exam is primarily about speed. With that in mind, the best way to approach the moderate to complex questions is to generate the initial YAML via the dry run flag. Then, edit the file with either vi or nano, and then create the required resource. The steps are outlined below.
 ```
 $ kubectl run nginx --image=nginx --restart=Never --dry-run -o yaml > mypod.yaml
 $ nano mypod.yaml
 $ kubectl create -f mypod.yaml
 pod "nginx" created
 ```
-There you go. If you're not satisfied with the results. Delete the resource, re-edit the declaritive yaml file, and redo.
+
 ```
 $ kubectl delete -f mypod.yaml
 pod "nginx" deleted
@@ -52,86 +27,37 @@ $ nano mypod.yaml
 $ kubectl create -f mypod.yaml
 pod "nginx" created
 ```
-# Overview
-The exam is 100% hands on using the innovative exams (www.examslocal.com) product. The CKAD exam requires an excellent understanding of K8s along with how to efficiently use kubectl to accomplish various tasks on Kubernetes. I'm sure they use this exam approach as it pretty much precludes any form of cheating. You either know the material and can very quickly implement it or not.  
-
-You will be given a list of 'tasks' to accomplish on one of four kubernetes clusters (these are described in the official exam tips above). The exam is 'open book' but only with the content available at kubernetes.io. You will have one tab for the exam content and one additional tab for kubernetes.io. However, don't expect that you can just research questions during the exam, as there will be very little time for 'learning' a specific k8s concept at exam time. It's there to help with YAML syntax detail only, IMO.
-
-The items in this particular repo / page describe and follow the official curriculum and point back to the various documents at Kubernetes.io.  There is a lot of content on k8s and a lot of it does not pertain to the CKAD exam, so I've pulled out the sections that are pertinent based on the curriculum. There is a nice checklist below that you can update once you think you have mastered a particular topic.
-
-I think the best approach is to fork this repo as a starting point for your studies, and then use the markdown checklist to ensure you cover all of the expected material, etc.
-
 # Current Progress
 The list below is based on the curriculum v1.0. Once you have mastered a section, check it off and move on to the next. You need to understand them ALL very well. The Core Concepts piece is kind of vague, but the others are defined well enough that it is easy to prepare for with a hands-on work through the tasks offered at kubernetes.io. The rest of this document follows this same outline of curriculum.
 
-- [x] __Core Concepts - 13%__
-  - [x] API Primitives
-  - [x] Create and Configure Basic Pods
+- [ ] __Core Concepts - 13%__
+  - [ ] API Primitives
+  - [ ] Create and Configure Basic Pods
 - [ ] __Configuration - 18%__
-  - [x] Understand ConfigMaps
-  - [x] Understand SecurityContexts
-  - [x] Define App Resource Requirements
+  - [ ] Understand ConfigMaps
+  - [ ] Understand SecurityContexts
+  - [ ] Define App Resource Requirements
   - [ ] Create and Consume Secrets
-  - [x] Understand Service Accounts
+  - [ ] Understand Service Accounts
 - [ ] __Multi-Container Pods - 10%__
   - [ ] Design Patterns: Ambassador, Adapter, Sidecar
     - [ ] - Sidecar Pattern
     - [ ] - Init Containers
-- [x] __Pod Design - 20%__
-  - [x] Using Labels, Selectors, and Annotations
-  - [x] Understand Deployments and Rolling Updates
-  - [x] Understand Deployment Rollbacks
-  - [x] Understand Jobs and CronJobs
+- [ ] __Pod Design - 20%__
+  - [ ] Using Labels, Selectors, and Annotations
+  - [ ] Understand Deployments and Rolling Updates
+  - [ ] Understand Deployment Rollbacks
+  - [ ] Understand Jobs and CronJobs
 - [ ] - __State Persistence - 8%__
   - [ ] - Understand PVCs for Storage
 - [ ] __Observability - 18%__
-  - [x] Liveness and Readiness Probes
-  - [x] Understand Container Logging
+  - [ ] Liveness and Readiness Probes
+  - [ ] Understand Container Logging
   - [ ] Understand Monitoring Application in Kubernetes
-  - [x] Understand Debugging in Kubernetes
-- [x] __Services and Networking - 13%__
-  - [x] Understand Services
-  - [x] Basic Network Policies
-
-# Where to Practice
-This particular items was difficult for me as I didn't have a (current) k8s cluster to use at work. As I was initially studying for the CKA which requires more cluster-level work, I tried many, many different approaches for an inexpensive k8s environment. built many clusters using K8s The Hard way on gcloud (and AWS), built a raspberry pi cluster I could carry to work, and tried using kubeadm / kops on gcloud and aws.
-
-In my opinion, and all that is required to pass this test, is to just setup a gcloud account, and use a two-node GKE cluster for studying. Heck, you can even use the very nice google cloud shell and not even leave your browser.
-
-[gcloud command line (SDK) documentation](https://cloud.google.com/sdk/)
-
-Here are commands used to create a two-node cluster for studying. I keep these here just so I can fire up and destroy a cluster for a few hours each day for study. Notice that you can tailor the cluster version to match the k8s version for the exam.
-```
-gcloud config set compute/zone us-central1-a
-gcloud config set compute/region us-central1
-gcloud container clusters create my-cluster --cluster-version=1.15.8-gke.2 --image-type=ubuntu --num-nodes=2
-```
-The result:
-```
-NAME        LOCATION       MASTER_VERSION  MASTER_IP     MACHINE_TYPE   NODE_VERSION  NUM_NODES  STATUS
-my-cluster  us-central1-a  v1.15.8-gke.2   35.232.253.6  n1-standard-1  v1.15.8-gke.2  2          RUNNING
-
-cloudshell:~$ kubectl get nodes
-NAME                                        STATUS    ROLES     AGE       VERSION
-gke-my-cluster-default-pool-5f731fab-9d6n   Ready     <none>    44s       v1.15.8-gke.2
-gke-my-cluster-default-pool-5f731fab-llrb   Ready     <none>    41s       v1.15.8-gke.2
-```
-## Setting kubectl Credentials
-If using the cloud shell, you'll sometimes need to authorize kubectl to connect to your cluster instance.
-```
-gcloud container clusters get-credentials my-cluster
-```
-## Deleting Your Cluster
-No need to keep the cluster around when not studying, so:
-```
-gcloud container clusters delete my-cluster
-```
-## To Get Current GKE Kubernetes Versions
-```
-  gcloud container get-server-config
-```
-# Detailed Review
-The exam is about speed and efficiency. If you spend very much time looking at documentation, you will have zero chance of completing the many questions. With that said, the following will help with time management. I've aligned the tips to follow the curriculum. This section is best used to provide a quick overview of the curriculum along with the needed kubectl commands for a hands-on exam.
+  - [ ] Understand Debugging in Kubernetes
+- [ ] __Services and Networking - 13%__
+  - [ ] Understand Services
+  - [ ] Basic Network Policies
 
 ## CORE CONCEPTS
 The core concepts section covers the core K8s API and its primitives and resources. It also covers the important concept of a POD. This is the basic unit of deployment for app developers and so this 'POD' concept is important to understand as well as how they are managed with kubectl. To me, this is embodied in the kubectl RUN command.
